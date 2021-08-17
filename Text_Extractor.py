@@ -1,12 +1,14 @@
+import os
+
 import pdf2image
-import os, sys
+
 try:
     from PIL import Image
 except ImportError:
     import Image
 import pytesseract
 
-PATH = 'Enter your Path' # declare the path of your file
+PATH = 'Enter your Path'  # declare the path of your file
 
 # initialize the counter that will be used later in the pdf extraction function
 i = 1
@@ -20,11 +22,12 @@ def delete_ppms():
             except FileNotFoundError:
                 pass
 
+
 # declare the names of the files with their extentions
 pdf_files = []
 docx_files = []
 
-#append document names into the lists by their extension type
+# append document names into the lists by their extension type
 for f in os.listdir(PATH):
     full_name = os.path.join(PATH, f)
     if os.path.isfile(full_name):
@@ -46,7 +49,7 @@ def pdf_extract(file, i):
             os.rename(PATH + file, PATH + 'image' + str(i) + '-' + str(j) + '.ppm')
             j += 1
     j = 0
-    f = open(PATH +'result{}.txt'.format(i), 'w')
+    f = open(PATH + 'result{}.txt'.format(i), 'w')
     files = [f for f in os.listdir(PATH) if '.ppm' in f]
 
     for file in sorted(files, key=lambda x: int(x[x.index('-') + 1: x.index('.')])):
